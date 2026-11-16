@@ -344,6 +344,7 @@
     <div id="nameInputs"></div>
 
     <h3>ゴールの項目</h3>
+
     <p class="hint">
       項目名と個数を入力してください。
       個数の合計は参加者の人数と同じにしてください。
@@ -351,9 +352,20 @@
 
     <div id="goalInputs"></div>
 
-    <button id="addGoal" type="button">
-      ゴールの項目を追加
-    </button>
+    <div class="row">
+      <button id="addGoal" type="button">
+        ゴールの項目を追加
+      </button>
+
+      <button id="numberGoals" type="button">
+        ゴールを連番で設定する
+      </button>
+    </div>
+
+    <p class="hint">
+      連番で設定すると、現在のゴール項目を置き換え、
+      1から参加人数までの数字を各1個ずつ設定します。
+    </p>
 
     <p id="settingsError" class="error" role="alert"></p>
 
@@ -710,6 +722,24 @@ $("count").addEventListener("input", updateNameInputs);
 
 $("addGoal").addEventListener("click", () => {
   addGoalRow();
+});
+
+/* ゴールを1から参加人数までの連番に設定 */
+$("numberGoals").addEventListener("click", () => {
+  const n = Number($("count").value);
+
+  if (!Number.isInteger(n) || n < 2 || n > MAX_PEOPLE) {
+    $("settingsError").textContent =
+      `参加者の人数は2〜${MAX_PEOPLE}人で入力してください。`;
+    return;
+  }
+
+  $("settingsError").textContent = "";
+  $("goalInputs").replaceChildren();
+
+  for (let i = 1; i <= n; i++) {
+    addGoalRow(String(i), 1);
+  }
 });
 
 $("finishSettings").addEventListener("click", () => {
