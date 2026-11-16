@@ -11,35 +11,65 @@
 
   body {
     margin: 0;
-    background: #f4f6fa;
-    color: #243047;
-    font-family: sans-serif;
+    min-height: 100vh;
+    color: #173e59;
+    font-family: "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+    background: linear-gradient(135deg, #e4f8ff, #c7efff, #e8f7ff);
   }
 
   main {
     max-width: 1200px;
     margin: 24px auto;
-    padding: 20px;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 2px 12px #0001;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.96);
+    border: 3px solid white;
+    border-radius: 24px;
+    box-shadow: 0 12px 35px rgba(35, 120, 160, 0.15);
   }
 
   h1 {
-    margin-top: 0;
+    margin: 0 0 24px;
+    padding: 18px;
+    color: white;
+    text-align: center;
+    border-radius: 16px;
+    background: linear-gradient(100deg, #32b7e3, #63cfee, #40a5db);
+    box-shadow: 0 5px 0 #a7dcef;
   }
 
   h2 {
     margin-top: 28px;
+    padding: 10px 14px;
+    color: #17668b;
+    border-left: 7px solid #62c9eb;
+    border-radius: 6px;
+    background: #eaf8ff;
+  }
+
+  h3 {
+    color: #287b9f;
   }
 
   input,
   select,
   button {
     font: inherit;
-    padding: 8px;
-    border: 1px solid #b8c2d2;
-    border-radius: 5px;
+    padding: 9px 10px;
+    border: 2px solid #bbdfed;
+    border-radius: 10px;
+  }
+
+  input,
+  select {
+    color: #173e59;
+    background: white;
+  }
+
+  input:focus,
+  select:focus,
+  button:focus-visible {
+    outline: 3px solid #50bfe7;
+    outline-offset: 2px;
   }
 
   input[type="number"] {
@@ -48,11 +78,24 @@
 
   button {
     cursor: pointer;
-    background: #e9eef7;
+    color: #17668b;
+    font-weight: bold;
+    background: #e6f7ff;
+    transition:
+      transform 0.15s,
+      box-shadow 0.15s,
+      background 0.15s;
   }
 
   button:hover:not(:disabled) {
-    background: #d9e4f5;
+    transform: translateY(-2px);
+    background: #ccefff;
+    box-shadow: 0 4px 0 #adddec;
+  }
+
+  button:active:not(:disabled) {
+    transform: translateY(1px);
+    box-shadow: none;
   }
 
   button:disabled {
@@ -61,13 +104,15 @@
   }
 
   .primary {
-    background: #2663cb;
     color: white;
-    border-color: #2663cb;
+    border-color: #289ecb;
+    background: linear-gradient(100deg, #38b9e3, #278fc9);
+    box-shadow: 0 4px 0 #a3d8e9;
   }
 
   .primary:hover:not(:disabled) {
-    background: #174ca4;
+    color: white;
+    background: linear-gradient(100deg, #219fc9, #1879b2);
   }
 
   .row {
@@ -83,21 +128,22 @@
   }
 
   .error {
-    color: #c52222;
     min-height: 1.5em;
+    color: #c42b44;
+    font-weight: bold;
   }
 
   .hint {
-    color: #53617a;
+    color: #50758a;
     font-size: 0.9em;
   }
 
   .board-wrap {
     overflow-x: auto;
-    border: 1px solid #d5dce7;
-    border-radius: 6px;
     margin: 16px 0;
     background: white;
+    border: 3px solid #ccecf8;
+    border-radius: 14px;
   }
 
   svg {
@@ -123,7 +169,9 @@
   .position-cell label {
     display: block;
     margin-bottom: 4px;
+    color: #287b9f;
     font-size: 0.85em;
+    font-weight: bold;
   }
 
   .position-cell select {
@@ -131,23 +179,24 @@
     max-width: 100%;
   }
 
-  /* 結果画面のタブ */
+  /* 結果画面 */
   .tabs {
     display: flex;
-    gap: 4px;
-    border-bottom: 2px solid #becbe0;
+    flex-wrap: wrap;
+    gap: 6px;
     margin-top: 20px;
+    border-bottom: 3px solid #a8deef;
   }
 
   .tab {
-    border-radius: 6px 6px 0 0;
+    border-radius: 12px 12px 0 0;
     border-bottom: 0;
   }
 
   .tab.active {
-    background: #2663cb;
     color: white;
-    border-color: #2663cb;
+    border-color: #299dca;
+    background: #299dca;
   }
 
   .person-buttons {
@@ -158,9 +207,17 @@
   }
 
   .person-button.active {
-    background: #d72727;
     color: white;
-    border-color: #d72727;
+    border-color: #197cad;
+    background: #197cad;
+  }
+
+  #selectedResult {
+    padding: 12px;
+    color: #17668b;
+    font-weight: bold;
+    border-radius: 10px;
+    background: #e8f8ff;
   }
 
   table {
@@ -171,13 +228,18 @@
   th,
   td {
     padding: 8px 16px;
-    border: 1px solid #d5dce7;
+    border: 1px solid #c7e5ef;
     text-align: left;
     overflow-wrap: anywhere;
   }
 
   th {
-    background: #edf2fa;
+    color: #17668b;
+    background: #dff4fd;
+  }
+
+  tr:nth-child(even) td {
+    background: #f4fbfe;
   }
 
   [hidden] {
@@ -189,10 +251,20 @@
     display: none;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    button {
+      transition: none;
+    }
+
+    button:hover:not(:disabled) {
+      transform: none;
+    }
+  }
+
   @media print {
     body {
-      background: white;
       color: black;
+      background: white;
     }
 
     main {
@@ -203,6 +275,16 @@
       display: block;
     }
 
+    #printArea h1,
+    #printArea h2 {
+      padding: 0;
+      color: black;
+      text-align: left;
+      background: none;
+      border: 0;
+      box-shadow: none;
+    }
+
     #printArea table {
       width: 100%;
       margin: 10px 0;
@@ -210,8 +292,10 @@
 
     #printArea th,
     #printArea td {
-      border: 1px solid black;
       padding: 6px;
+      color: black;
+      border: 1px solid black;
+      background: white;
     }
 
     #printArea tr {
@@ -543,7 +627,7 @@ function svgText(svg, x, y, value) {
     y,
     "text-anchor": "middle",
     "font-size": "13",
-    fill: "#243047"
+    fill: "#173e59"
   });
 
   text.textContent = shortText(value);
@@ -768,7 +852,7 @@ function renderPositionLines() {
       y1: 0,
       x2: x,
       y2: height - 15,
-      stroke: "#3d4a5e",
+      stroke: "#345b70",
       "stroke-width": 2
     }));
   });
@@ -890,9 +974,12 @@ function createBoard(container, options = {}) {
     width,
     height,
     viewBox: `0 0 ${width} ${height}`,
-    role: "img",
     "aria-label": "あみだくじの図"
   });
+
+  if (!edit) {
+    svg.setAttribute("role", "img");
+  }
 
   positions.forEach((name, column) => {
     const x = xAt(column);
@@ -904,7 +991,7 @@ function createBoard(container, options = {}) {
       y1: TOP,
       x2: x,
       y2: BOTTOM,
-      stroke: "#3d4a5e",
+      stroke: "#345b70",
       "stroke-width": 2
     }));
 
@@ -928,7 +1015,7 @@ function createBoard(container, options = {}) {
           y1: y,
           x2,
           y2: y,
-          stroke: "#3d4a5e",
+          stroke: "#345b70",
           "stroke-width": 2
         }));
       } else if (edit && available) {
@@ -937,7 +1024,7 @@ function createBoard(container, options = {}) {
           y1: y,
           x2,
           y2: y,
-          stroke: "#91afe0",
+          stroke: "#62b9d9",
           "stroke-width": 2,
           "stroke-dasharray": "5 5"
         }));
@@ -998,6 +1085,14 @@ function createBoard(container, options = {}) {
   container.replaceChildren(svg);
 
   if (animatedPath) {
+    const reduceMotion =
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (reduceMotion) {
+      return;
+    }
+
     const length = animatedPath.getTotalLength();
 
     animatedPath.style.strokeDasharray = String(length);
@@ -1071,7 +1166,7 @@ $("finishLines").addEventListener("click", () => {
   renderPersonView();
   renderResultTables();
 
-  // 印刷用のあみだくじ全体図を作成
+  // 印刷用のあみだくじ全体図
   createBoard($("printBoard"), {
     showGoals: true
   });
@@ -1119,17 +1214,24 @@ function renderPersonView() {
     button.className = "person-button";
     button.textContent = result.name;
 
-    const active = selectedPerson === index;
-
-    button.classList.toggle("active", active);
-    button.setAttribute("aria-pressed", String(active));
-
     button.addEventListener("click", () => {
       selectedPerson = index;
-      renderPersonView();
+      updateSelectedPerson();
     });
 
     container.append(button);
+  });
+
+  updateSelectedPerson();
+}
+
+function updateSelectedPerson() {
+  const buttons = $("personButtons").querySelectorAll("button");
+
+  buttons.forEach((button, index) => {
+    const active = selectedPerson === index;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", String(active));
   });
 
   if (selectedPerson === -1) {
